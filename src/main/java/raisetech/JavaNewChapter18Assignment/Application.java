@@ -8,22 +8,22 @@ import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
 @RestController
-public class JavaNewChapter18AssignmentApplication {
+public class Application {
 
   public static void main(String[] args) {
-    SpringApplication.run(JavaNewChapter18AssignmentApplication.class, args);
+    SpringApplication.run(Application.class, args);
   }
 
-  StudentInfo studentinfo = new StudentInfo("Taro", "25");
+  StudentInfo studentInfo = new StudentInfo("Taro", "25");
 
   @GetMapping("/studentInfo")
   public String getStudentInfo() {
-    return studentinfo.getName() + "　" + studentinfo.getAge() + "歳";
+    return studentInfo.getName() + "　" + studentInfo.getAge() + "歳";
   }
 
   @PostMapping("/studentInfo")
   public void setStudentInfo(String newName, String newAge) {
-    studentinfo.setName(newName);
-    studentinfo.setAge(newAge);
+    studentInfo.setName(newName);
+    studentInfo.setAge(newAge);
   }
 }
