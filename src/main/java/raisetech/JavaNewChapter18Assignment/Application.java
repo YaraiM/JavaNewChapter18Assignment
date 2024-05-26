@@ -1,5 +1,6 @@
 package raisetech.JavaNewChapter18Assignment;
 
+import java.util.Map;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,16 +15,22 @@ public class Application {
     SpringApplication.run(Application.class, args);
   }
 
-  StudentInfo studentInfo = new StudentInfo("Taro", "25");
+  // schoolをインスタンス化
+  School school = new School();
 
   @GetMapping("/studentInfo")
   public String getStudentInfo() {
-    return studentInfo.getName() + "　" + studentInfo.getAge() + "歳";
+    StringBuilder studentInfo = new StringBuilder(); //可変長の文字列
+
+    for (Map.Entry<Integer, StudentInfo> entry : school.getEntrySet()) {
+      studentInfo.append(entry.getKey()).append("番 ").append(entry.getValue().getName())
+          .append("：").append(entry.getValue().getAge()).append("歳　");
+    }
+    return studentInfo.toString(); //getStudentInfoがString型なので、Stringに変換
   }
 
-  @PostMapping("/studentInfo")
-  public void setStudentInfo(String newName, String newAge) {
-    studentInfo.setName(newName);
-    studentInfo.setAge(newAge);
+  @PostMapping("/updateStudentInfo")
+  public void updateStudentInfo(int id, String newName, String newAge) {
+    school.updateStudentInfo(id, newName, newAge);
   }
 }
